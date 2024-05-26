@@ -1,16 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.appConteiner} >  
 
+  const [enteredgoalText,setEnteredGoal] =useState("");
+  const [courseGoals, setCourseGoals] = useState ([]);
+
+  function goalInputHandler(enteredText) {
+    setEnteredGoal(enteredText)
+  };
+   
+
+  function addGoalHandler() {
+    setCourseGoals((currentCourseGoals) =>[...currentCourseGoals,enteredgoalText]);
+  }
+
+  return (
+    <View style={styles.appContainer} >
       <View style={styles.inputContainer}>
-        <TextInput style={styles.TextInput} placeholder='Objetivo del curso'/>
-        <Button title='Agregar'/>
+        <TextInput style={styles.textImput} placeholder='Your course goal!' onChangeText={goalInputHandler}  /> 
+        <Button title='Add Goal' onPress={addGoalHandler}/>
       </View>
-      <View>
-        <Text>Nuevos objetivos 2024</Text>
+      
+      <View style={styles.goalsContainer}>
+        {courseGoals.map((goal)=><Text key={(goal)}>{goal}</Text>)}
       </View>
       
     </View>
@@ -18,19 +32,35 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
- appConteiner:{
-  padding : 50
- },
- inputContainer:{
-  flexDirection: "row",
-  justifyContent:"space-between"
- },
- TextInput:{
-  borderWidth: 1,
-  borderColor:"#cccccc",
-  width:"80%",
-  marginRight: 8,
-  padding:8
 
- }
+  appContainer:{
+    padding: 50,
+    paddingHorizontal:26,
+    flex:1
+
+
+  },
+
+  inputContainer:{
+    flex: 1,
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems: "center",
+    marginBottom:16,
+    borderBottomWidth:1,
+    borderBottomColor:"#cccccc"
+
+  },
+  textImput:{
+    borderWidth: 1,
+    borderColor:"#cccccc",
+    width:"70%",
+    marginRight:8,
+    padding: 8
+
+  },
+  goalsContainer:{
+    flex:5
+  }
+  
 });
