@@ -10,7 +10,7 @@ export default function App() {
         <Button title='Agregar'/>
       </View>
       <View>
-        <Text>Nuevos objetivos</Text>
+        <Text>Nuevos objetivos 2024</Text>
       </View>
       
     </View>
