@@ -7,10 +7,10 @@ export default function App() {
 
       <View style={styles.inputContainer}>
         <TextInput style={styles.TextInput} placeholder='Objetivo del curso'/>
-        <Button title='Agregar objetivo'/>
+        <Button title='Agregar'/>
       </View>
       <View>
-        <Text>Lista de objetivos</Text>
+        <Text>Nuevos objetivos</Text>
       </View>
       
     </View>
