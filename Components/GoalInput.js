@@ -7,16 +7,21 @@ function GoalImput(props) {
     function goalInputHandler(enteredText) {
         setEnteredGoalText(enteredText);
       }
-
+    
       function addGoalHandler(){
         props.onAddGoal(enteredGoalText);
         setEnteredGoalText("");
       }
 
+      console.log(enteredGoalText);
+
     return (
-  <Modal visible={props.visible} animationType="slide">
+   <Modal visible={props.visible} animationType="slide">
     <View style={styles.inputContainer}>
-      <Image  style={styles.image}source={require("../assets/images/goal.png")}/>
+     <Image 
+      style={styles.image}
+      source={require("../assets/images/goal.png")}
+     />
       <TextInput 
       style={styles.textImput} 
       placeholder='Your course goal!' 
@@ -50,14 +55,15 @@ const styles= StyleSheet.create({
         justifyContent:"center",
         alignItems: "center",
         padding:16,
-        backgroundColor: "#311b6b"
+        backgroundColor: "#311b6b",
     
       },
 
       image:{
-        width:100,
-        height:100,
+        width:250,
+        height:250,
         margin:20,
+        
       },
 
       textImput:{
@@ -67,7 +73,8 @@ const styles= StyleSheet.create({
         width:"100%",
         padding: 12,
         color:"#120438",
-        borderRadius:6
+        borderRadius:6,
+        
     
       },
       buttonContainer:{
