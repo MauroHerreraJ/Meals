@@ -1,33 +1,33 @@
-import { FlatList } from "react-native";
-import { CATEGORIES } from "../data/dummy-datta";
-import CategoryGridTile from "../Components/CategoryGridTile";
+import { FlatList } from 'react-native';
+import CategoryGridTile from '../Components/CategoryGridTile';
+
+import { CATEGORIES } from '../data/dummy-datta';
 
 function CategoriesScreen({ navigation }) {
-    function renderCategoryItem(itemData) {
-      function pressHandler() {
-        navigation.navigate('MealsOverview',{
-            categoryId : itemData.item.id,
-        }
-        );
-      }
-  
-      return (
-        <CategoryGridTile
-          title={itemData.item.title}
-          color={itemData.item.color}
-          onPress={pressHandler}
-        />
-      );
+  function renderCategoryItem(itemData) {
+    function pressHandler() {
+      navigation.navigate('MealsOverview', {
+        categoryId: itemData.item.id,
+      });
     }
-  
+
     return (
-      <FlatList
-        data={CATEGORIES}
-        keyExtractor={(item) => item.id}
-        renderItem={renderCategoryItem}
-        numColumns={2}
+      <CategoryGridTile
+        title={itemData.item.title}
+        color={itemData.item.color}
+        onPress={pressHandler}
       />
     );
   }
-  
-  export default CategoriesScreen;
+
+  return (
+    <FlatList
+      data={CATEGORIES}
+      keyExtractor={(item) => item.id}
+      renderItem={renderCategoryItem}
+      numColumns={2}
+    />
+  );
+}
+
+export default CategoriesScreen;

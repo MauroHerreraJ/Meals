@@ -1,41 +1,56 @@
-import { View,FlatList,StyleSheet } from "react-native";
-import { MEALS } from "../data/dummy-datta";
-import MealItem from "../Components/MealItem";
+import { useLayoutEffect } from 'react';
+import { View, FlatList, StyleSheet } from 'react-native';
 
-function MealsOverviewScreen({route}){
-    const catId = route.params.categoryId;
+import MealItem from '../Components/MealItem';
+import { MEALS,CATEGORIES } from '../data/dummy-datta';
 
-    const displayedMeals = MEALS.filter((mealItem) => {
-        return mealItem.categoryIds.indexOf(catId) >= 0;
-        });
+function MealsOverviewScreen({ route, navigation }) {
+  const catId = route.params.categoryId;
 
-        function renderMealItem(itemData){
-            const item = itemData.item;
+  const displayedMeals = MEALS.filter((mealItem) => {
+    return mealItem.categoryIds.indexOf(catId) >= 0;
+  });
 
-            const mealItemProps = {
-                title: item.title,
-                imageUrl: item.imageUrl,
-                affordability:item.affordability,
-                complexity:item.complexity,
-                duration:item.duration
-            };
-            return <MealItem {...mealItemProps}
-            />
-        }
+  useLayoutEffect(() => {
+    const categoryTitle = CATEGORIES.find(
+      (category) => category.id === catId
+    ).title;
 
-    return (
+    navigation.setOptions({
+      title: categoryTitle,
+    });
+  }, [catId, navigation]);
+
+  function renderMealItem(itemData) {
+    const item = itemData.item;
+
+    const mealItemProps = {
+      id:item.id,
+      title: item.title,
+      imageUrl: item.imageUrl,
+      affordability: item.affordability,
+      complexity: item.complexity,
+      duration: item.duration,
+    };
+    return <MealItem {...mealItemProps} />;
+  }
+
+  return (
     <View style={styles.container}>
-       <FlatList data = {displayedMeals} keyExtractor={(item) => item.id} renderItem={renderMealItem}/>
+      <FlatList
+        data={displayedMeals}
+        keyExtractor={(item) => item.id}
+        renderItem={renderMealItem}
+      />
     </View>
-    );
+  );
 }
 
 export default MealsOverviewScreen;
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        padding:16
-    },
-
-})
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+});

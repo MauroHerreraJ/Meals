@@ -14,7 +14,7 @@ function CategoryGridTile({ title, color, onPress }) {
         <View style={[styles.innerContainer, { backgroundColor: color }]}>
           <Text style={styles.title}>{title}</Text>
         </View>
-      </Pressable>
+      </Pressable> 
     </View>
   );
 }
