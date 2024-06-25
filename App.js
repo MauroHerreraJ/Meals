@@ -1,5 +1,5 @@
 
-import { StyleSheet,Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,6 +10,7 @@ import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDeatailScreen from './screens/MealDetailScreen';
 import FavoriteScreen from './screens/FavoritesScreen';
 import {Ionicons} from "@expo/vector-icons";
+import FavoriteContextProvider from './store/context/favorites-context';
 
 
 const Stack = createNativeStackNavigator();
@@ -54,6 +55,7 @@ export default function App() {
 
     <>
       <StatusBar style="light" />
+      <FavoriteContextProvider>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -79,6 +81,7 @@ export default function App() {
          
         </Stack.Navigator>
       </NavigationContainer>
+      </FavoriteContextProvider>
     </>
   );
 }

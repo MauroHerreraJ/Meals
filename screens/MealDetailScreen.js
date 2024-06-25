@@ -1,28 +1,44 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { View,Text,Image, StyleSheet, ScrollView } from "react-native";
 import { MEALS } from "../data/dummy-datta";
 import MealDetails from "../Components/MealDetails";
 import Subtitle from "../Components/MealDetail/Subtitle";
 import List from "../Components/MealDetail/List";
 import IconButton from "../Components/IconButton";
+import { FavoritesContext } from "../store/context/favorites-context";
+
+
 
 
 function MealDetailScreen({route,navigation}){
+    const favoriteMealsCtx=useContext(FavoritesContext); 
+
     const mealId = route.params.mealId;
     
     const selectedMeals = MEALS.find((meal) => meal.id === mealId);
 
-    function headerButtonPressHandler(){
-        console.log("Pressed");
+    const mealsFavorite = favoriteMealsCtx.ids.includes(mealId);
+
+    function changeFavouriteStatusHandler(){
+        if (mealsFavorite){
+           favoriteMealsCtx.removeFavorite(mealId);
+        } else{
+            favoriteMealsCtx.addFavorite(mealId);
+        }
     }
 
     useLayoutEffect(()=>{
         navigation.setOptions({
             headerRight:() =>{
-                return <IconButton icon="star" color="white" onPress={headerButtonPressHandler}/>
+                return (
+                <IconButton 
+                icon={mealsFavorite ? "star" : "star-outline"} 
+                color="white" 
+                onPress={changeFavouriteStatusHandler}/>
+                );
             }
         });
-     },[navigation,headerButtonPressHandler]);
+     },[navigation,changeFavouriteStatusHandler]);
 
     return <ScrollView style={styles.rootContainer}>
        <Image style={styles.image} source={{uri:selectedMeals.imageUrl}}/> 
